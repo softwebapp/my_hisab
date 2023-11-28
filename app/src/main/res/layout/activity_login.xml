@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LoginActivity">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv1"
+        android:layout_width="@dimen/_75sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:src="@drawable/ic_splash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="Sign in to continue"
+        android:textColor="@color/middle_blue"
+        android:textSize="@dimen/_16ssp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv1" />
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv1"
+        >
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Email"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etUserName"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/et_shape"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
+            android:paddingStart="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="Password"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/et_shape"
+            android:hint="Enter your password"
+            android:inputType="textPassword"
+            android:paddingStart="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_11ssp" />
+
+    </LinearLayout>
+
+    <CheckBox
+        android:id="@+id/cbCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I agree to"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/ll1"
+        />
+
+    <TextView
+        android:id="@+id/tvTandC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Terms and condiction"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/_5sdp"
+        app:layout_constraintBottom_toBottomOf="@id/cbCheck"
+        app:layout_constraintTop_toTopOf="@id/cbCheck"
+        app:layout_constraintStart_toEndOf="@id/cbCheck"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_35sdp"
+        android:background="@drawable/btn_shape"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintTop_toBottomOf="@id/cbCheck" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

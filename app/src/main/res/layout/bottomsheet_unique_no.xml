@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/consDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <AutoCompleteTextView
+        android:id="@+id/etUniqueNo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginTop="@dimen/_18sdp"
+        android:background="@drawable/et_shape"
+        android:hint="Unique No"
+        android:inputType="text"
+        android:paddingStart="@dimen/_8sdp"
+        android:textColor="@color/black"
+        android:layout_marginHorizontal="@dimen/_25sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="@dimen/_11ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Passbook ID: "
+        android:id="@+id/tvPassbookId"
+        app:layout_constraintTop_toBottomOf="@id/etUniqueNo"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Name: "
+        android:id="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvPassbookId"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Contact No.: "
+        android:id="@+id/tvContact"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Email-id: "
+        android:id="@+id/tvEmail"
+        app:layout_constraintTop_toBottomOf="@id/tvContact"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Start Date : "
+        android:id="@+id/tvStartDate"
+        app:layout_constraintTop_toBottomOf="@id/tvEmail"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="End Date: "
+        android:id="@+id/tvendDate"
+        app:layout_constraintTop_toBottomOf="@id/tvStartDate"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Amount: "
+        android:id="@+id/tvAmount"
+        app:layout_constraintTop_toBottomOf="@id/tvendDate"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Last Transaction Amount : "
+        android:id="@+id/tvLastTransAmount"
+        app:layout_constraintTop_toBottomOf="@id/tvAmount"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:text="Ok"
+        android:textColor="@color/black"
+        android:id="@+id/btnOk"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:layout_constraintTop_toBottomOf="@id/tvLastTransAmount"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
