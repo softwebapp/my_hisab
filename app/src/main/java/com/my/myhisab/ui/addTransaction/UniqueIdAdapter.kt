@@ -3,12 +3,9 @@ package com.my.myhisab.ui.addTransaction
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.my.myhisab.databinding.ItemHistoryBinding
 import com.my.myhisab.databinding.ItemUniqueBinding
-import com.my.myhisab.dto.CustomerListDto
-import com.my.myhisab.dto.TransctionAllHistoryDto
 import com.my.myhisab.dto.UniqueIdDto
-import com.my.utils.extensions.defaultOnNullValue
+
 
 class UniqueIdAdapter(
     private var list: ArrayList<UniqueIdDto.Data>,
@@ -23,6 +20,11 @@ class UniqueIdAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
+    }
+
+    fun filterList(filterlist: ArrayList<UniqueIdDto.Data>) {
+        list = filterlist
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

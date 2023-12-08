@@ -1,5 +1,6 @@
 package com.my.myhisab.ui.addTransaction
 
+import MySharedPreferences
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -25,6 +26,7 @@ import com.my.myhisab.ui.BaseActivity
 import com.my.utils.MultipartHelper
 import com.my.utils.extensions.defaultOnNullValue
 import com.my.utils.extensions.gone
+import com.my.utils.extensions.isNetworkAvailable
 import com.my.utils.extensions.toast
 import com.my.utils.extensions.visible
 import okhttp3.MultipartBody
@@ -34,12 +36,18 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.util.Calendar
+import java.util.Locale
 
 
 class AddTransactionActivity : BaseActivity() {
 
-    var userDataAc: LoginDto.Data? = null
+    // offline Work
+    var mySharedPreferences: MySharedPreferences? = null
+    private var courseModalArrayList: ArrayList<OfflineTransactionDto> = arrayListOf()
+    private var courseModal: OfflineTransactionDto? = null
 
+
+    var userDataAc: LoginDto.Data? = null
     private lateinit var binding: ActivityAddTransactionBinding
     private val viewModel by viewModels<AddTranViewModel>()
 
@@ -58,8 +66,16 @@ class AddTransactionActivity : BaseActivity() {
         binding = ActivityAddTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userDataAc =
-            Gson().fromJson(PrefManager.getString(ApiDetails.LogIn), LoginDto.Data::class.java)
+        userDataAc = Gson().fromJson(PrefManager.getString(ApiDetails.LogIn), LoginDto.Data::class.java)
+
+        //offline
+        mySharedPreferences = MySharedPreferences(this)
+
+        val retrievedList = mySharedPreferences?.getArrayList()
+        if (retrievedList != null) {
+            courseModalArrayList =  retrievedList
+        }
+
 
         binding.ivBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -97,13 +113,26 @@ class AddTransactionActivity : BaseActivity() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(etText: Editable?) {
-                if (etText!!.count() > 3) {
-                    if (isChecked) {
-                        binding.recycler.gone()
-                    } else {
-                        viewModel.callUniqueIDApi(userDataAc?.id.toString(), etText.toString())
+                if (isNetworkAvailable(this@AddTransactionActivity)){
+                    if (etText!!.count() > 3) {
+                        if (isChecked) {
+                            binding.recycler.gone()
+                        } else {
+                            viewModel.callUniqueIDApi(userDataAc?.id.toString(), etText.toString())
+                        }
+                    }
+                }else{
+                    isInternetNotAvaibale()
+                    if (etText!!.count() > 3) {
+                        if (isChecked) {
+                            binding.recycler.gone()
+                        } else {
+                            setUpAdapter(listOfUniqueID)
+                            filter(etText.toString())
+                        }
                     }
                 }
+
             }
         })
 
@@ -112,6 +141,37 @@ class AddTransactionActivity : BaseActivity() {
             setUpAdapter(it.data)
         }
 
+        if (!isNetworkAvailable(this@AddTransactionActivity)){
+            val retrievedList = mySharedPreferences?.getOfflineUniqueArrayList()
+            if (retrievedList != null) {
+                listOfUniqueID =  retrievedList
+
+            }
+        }
+
+    }
+
+    private fun isInternetNotAvaibale(){
+            val retrievedList = mySharedPreferences?.getOfflineUniqueArrayList()
+            if (retrievedList != null) {
+                listOfUniqueID =  retrievedList
+            }
+    }
+
+    private fun filter(text: String) {
+        val filteredlist: ArrayList<UniqueIdDto.Data> = ArrayList<UniqueIdDto.Data>()
+        for (item in listOfUniqueID) {
+            if (item.value?.toLowerCase()!!.contains(text.lowercase(Locale.getDefault()))
+                || item.name?.toLowerCase()!!.contains(text.lowercase(Locale.getDefault()))
+                || item.email?.toLowerCase()!!.contains(text.lowercase(Locale.getDefault()))) {
+                filteredlist.add(item)
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show()
+        } else {
+            adapter!!.filterList(filteredlist)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -149,20 +209,37 @@ class AddTransactionActivity : BaseActivity() {
         } else if (binding.etRemark.text.isNullOrEmpty()) {
             toast("Please Enter Remark")
         } else {
-            callAddtransitionApi(
-                binding.etUniqueNo.text.toString(), binding.etAmount.text.toString(), dateFor,
-                binding.etRemark.text.toString(), userDataAc?.id.toString(),
-            )
+            if (isNetworkAvailable(this)) {
+                callAddtransitionApi(
+                    binding.etUniqueNo.text.toString(), binding.etAmount.text.toString(), dateFor,
+                    binding.etRemark.text.toString(), userDataAc?.id.toString(),
+                )
+            }else{
+                offlineDataSave()
+            }
         }
     }
 
-    fun callAddtransitionApi(
-        unique: String,
-        amount: String,
-        date: String,
-        remark: String,
-        uid: String
-    ) {
+    private fun offlineDataSave(){
+        val iD = if (courseModalArrayList.isEmpty()) {
+            1
+        } else {
+            (courseModalArrayList.last().id) + 1
+        }
+
+        courseModal = OfflineTransactionDto(iD,
+            binding.etUniqueNo.text.toString(),userDataAc?.id.toString(),dateFor,
+            binding.etAmount.text.toString(),binding.etRemark.text.toString()
+        )
+
+        toast("Offline Data Save Success")
+        mySharedPreferences?.addElement(courseModal!!)
+        onBackPressedDispatcher.onBackPressed()
+
+
+    }
+
+    fun callAddtransitionApi(unique: String, amount: String, date: String, remark: String, uid: String) {
         loader.show()
         val map: LinkedHashMap<String, RequestBody> = linkedMapOf<String, RequestBody>().apply {
             put("unique", MultipartHelper.prepareDataPart(unique.defaultOnNullValue()))

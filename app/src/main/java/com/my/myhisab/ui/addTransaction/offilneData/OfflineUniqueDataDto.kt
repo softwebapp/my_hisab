@@ -1,11 +1,11 @@
-package com.my.myhisab.dto
+package com.my.myhisab.ui.addTransaction.offilneData
 
 
 import com.google.gson.annotations.SerializedName
 
-data class UniqueIdDto(
+data class OfflineUniqueDataDto(
     @SerializedName("data")
-    val data: ArrayList<Data> = arrayListOf(),
+    val `data`: List<Data?>?,
     @SerializedName("message")
     val message: String?,
     @SerializedName("status")

@@ -7,6 +7,7 @@
     tools:context=".ui.fragment.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:id="@+id/consOffline"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:text="Offline Data"
+            android:text="OFFLINE DATA"
             android:textColor="@color/red"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
@@ -30,10 +31,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_3sdp"
-            android:text="Please send your data"
+            android:text="Manage Your OfflineData"
             android:textColor="@color/red"
             android:textSize="@dimen/_12ssp"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
             app:layout_constraintStart_toStartOf="@id/tvNoon1"
             app:layout_constraintTop_toBottomOf="@id/tvNoon1" />
 

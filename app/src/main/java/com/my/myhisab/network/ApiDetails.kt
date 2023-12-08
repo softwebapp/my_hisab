@@ -23,6 +23,7 @@ object ApiDetails {
     const val customerledger = "customerledger"
     const val searchname = "searchname"
     const val customertransactioncalc = "customertransactioncalc"
+    const val searchnameoffline = "searchnameoffline"
 
 
 
